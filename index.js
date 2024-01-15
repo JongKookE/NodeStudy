@@ -9,9 +9,23 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-});
+// io.on('connection', (socket) => {
+//   // console.log('a user connected');
+//   socket.on("disconnect", () => console.log("user disconnect"));
+//   socket.on("chat message", (msg) => {
+//     console.log('message: ' + msg);
+//   })
+// });
+
+io.on("connection", (socket) =>{
+  //  socket.broadcast.emit("hi")
+   socket.on("chat message", (msg) =>{
+    io.emit("chat message", msg);
+   });
+
+   socket.on("disconnect", () => console.log("Disconnected"))
+  });
+
 
 server.listen(3000, () => {
   console.log('listening on *:3000');
