@@ -1,7 +1,7 @@
-const express = require('express');
-const app = express();
-const http = require('http');
-const server = http.createServer(app);
+const express = require('express'); // express를 가져와 변수에 저장
+const app = express(); // express를 싱행한 값을 app에 저장
+const http = require('http'); // 서버의 정보
+const server = http.createServer(app); 
 const { Server } = require("socket.io");
 const io = new Server(server);
 
