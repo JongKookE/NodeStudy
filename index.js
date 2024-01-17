@@ -4,15 +4,21 @@ const http = require('http'); // 서버의 정보
 const server = http.createServer(app); 
 const { Server } = require("socket.io");
 const io = new Server(server);
+const bodyParser = require("body-parser");
 
 
 app.use(express.static("assets"))
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended:true}));
+app.post("/post", (req, res) => res.send("<h1>Welcome! </h1>" + req.body.input));
 
 app.get("/slime", (req, res) => res.sendFile(__dirname + "/assets/slime.png"));
 
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
+
+app.get("/form", (req, res) => res.sendFile(__dirname + "/simple_form.html"));
 
 // io.on('connection', (socket) => {
 //   // console.log('a user connected');
