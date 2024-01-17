@@ -5,6 +5,11 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 
+
+app.use(express.static("assets"))
+
+app.get("/slime", (req, res) => res.sendFile(__dirname + "/assets/slime.png"));
+
 app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
