@@ -18,15 +18,18 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get("/form", (req, res) => res.sendFile(__dirname + "/simple_form.html"));
+app.get("/form", (req, res) => {
+  res.sendFile(__dirname + "/simple_form.html")
+});
+  
 
-// io.on('connection', (socket) => {
-//   // console.log('a user connected');
-//   socket.on("disconnect", () => console.log("user disconnect"));
-//   socket.on("chat message", (msg) => {
-//     console.log('message: ' + msg);
-//   })
-// });
+io.on('connection', (socket) => {
+  console.log(socket.id, "is Connected");
+  socket.on("disconnect", () => console.log("user disconnect"));
+  socket.on("chat message", (msg) => {
+    console.log('message: ' + msg);
+  })
+});
 
 io.on("connection", (socket) =>{
   //  socket.broadcast.emit("hi")

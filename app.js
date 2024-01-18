@@ -8,6 +8,10 @@ const port = 3000
 
 app.use(express.static("assets"))
 
+io.on("connected", (res, req) => {
+    
+})
+
 app.get('/', function(req,res) {
     res.sendFile(__dirname + "/assets/main.html")
 })
