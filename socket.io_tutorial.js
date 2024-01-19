@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 import { fileURLToPath } from 'node:url';
 import {dirname, join } from 'node:path';
 import { Server } from 'socket.io';
+import { writeFile } from "fs";
 
 // "type":"module"이 반드시 필요
 // package.json dependencies 위에 기입해줘야함
@@ -20,7 +21,16 @@ io.on('connection', (socket) => {
         console.log(`${nickname} : ${msg}`)
         io.emit("chat message", nickname , msg);
     })
-    socket.broadcast.emit("hi");
+
+    socket.on("upload", (file, callback) => {
+        console.log(file); // <Buffer 25 50 44 ...>
+    
+        // save the content to the disk, for example
+        writeFile("/tmp/upload", file, (err) => {
+          callback({ message: err ? "failure" : "success" });
+        });
+      });
+
 });
 
 

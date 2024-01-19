@@ -18,6 +18,7 @@
   </head>
   <body>
     <ul id="messages"></ul>
+    <input type="file" onchange="upload(this.files)" />
     <form id="form" action="">
         <input type="text" placeholder="닉네임" id="nickname">
       <input id="input" autocomplete="off" /><button>Send</button>
@@ -31,7 +32,6 @@
         const message = document.querySelector("#message");
         const nickname = document.querySelector("#nickname");
 
-        
         form.addEventListener('submit', (e) => {
             e.preventDefault();
             if(input.value){
@@ -46,6 +46,12 @@
             messages.appendChild(item)
             window.scrollTo(0, document.body.scrollHeight);
         })
+
+        function upload(files) {
+          socket.emit("upload", files[0], (status) => {
+            console.log(status);
+          });
+        }
     </script>
   </body>
 </html>
